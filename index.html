@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384
+    -MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <style> @import url('https://fonts.googleapis.com/css2?family=Satisfy&display=swap');
+     @import url('https://fonts.googleapis.com/css2?family=Playfair+Display&family=Tiro+Tamil&display=swap'); </style>
+
+</head>
+
+<body >
+    <div style="background-image: url(./img/starry_s.jpg); background-size: cover; background-position: center; background-repeat: no-repeat;" >
+        
+    <div class="container" >
+        <div class="row" >
+            <div class="col-6">
+                <h1 class="mt-5 text-white" style=" font-family: 'Satisfy', cursive;">
+                    STARS</h1>
+
+                <form action="" class=" p-5 rounded mt-3">
+                    <input class="form-control m-3 mt-3 w-50"  type="text" name="" id="s_name"
+                        placeholder="Enter Star name">
+                    <input class="form-control btn btn-outline-primary mb-5 ms-3 w-50" type="button" onclick="search()"
+                        value="search">
+            </form>
+
+            </div>
+            <div class="col-6" style=" padding-top: 110px; "  id="result">
+                
+           
+            </div>
+         <p class="text-white fs-5" style=" font-family: 'Playfair Display', serif; padding-top: 246px; font-weight: 1000;  text-align: center; opacity: 0.5;"><b> “There was always something new to <br> be seen in the unchanging night sky.” <br> <br>
+        — Fritz Leiber </b></p>
+        </div>
+        
+       
+    </div>
+   
+        
+    </div>
+</body>
+<script>
+    function search() {
+        stars = s_name.value;
+
+        var head = {
+	method: 'GET',
+	headers: {
+		'X-Api-Key': 'Fudu890UfrKidZ3g1nr6zQ==11ePBVPpHQYu2l7R',
+	}
+};
+        fetch(`https://api.api-ninjas.com/v1/stars?name=${stars}`,head)
+            .then(res => res.json())
+            .then(data => displayData(data))
+            .catch(err => {
+                alert("failed to fetch")
+            })
+    }
+    function displayData(starDetails) {
+        name = starDetails[0].name
+        constellation = starDetails[0].constellation
+        distance = starDetails[0].distance_light_year
+        declination =starDetails[0].declination
+        spectral_class= starDetails[0].spectral_class
+        let htmlData =`<div class="text-white fs-5 f-5 m-5" style="opacity: 0.8;"><b>
+            Name : ${name}  <br>
+    Constellation : ${constellation}  <br>
+   Distance Light Year:${distance}  <br>
+   Declination :${declination} <br>
+   Spectral Class: ${spectral_class}</b></div>`
+        result.innerHTML = htmlData;
+    }
+</script>
+</html>
